@@ -2,7 +2,6 @@ import { Request, Response, NextFunction, Router } from 'express';
 
 import { User, IUser } from '../models/user';
 import { auth } from '../middleware/auth';
-import { IPost } from '../models/post';
 
 export const userRouter = Router();
 

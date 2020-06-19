@@ -3,7 +3,6 @@ import store from 'store2';
 
 const fetchClient = () => {
   const defaultOptions = {
-    baseURL: process.env.REACT_APP_BaseUrl,
     responseType: 'json',
   };
 
