@@ -93,7 +93,6 @@ const Navbar = () => {
         <div className='modal-content'>
           <input
             type='text'
-            style={{ color: 'black' }}
             placeholder='search users'
             value={search}
             onChange={(e) => fetchUsers(e.target.value)}
@@ -110,7 +109,11 @@ const Navbar = () => {
                     M.Modal.getInstance(searchModel.current).close();
                   }}
                 >
-                  <li className='collection-item' key={item._id}>
+                  <li
+                    className='collection-item'
+                    key={item._id}
+                    style={{ color: 'black' }}
+                  >
                     {item.name}
                   </li>
                 </Link>
