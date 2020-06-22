@@ -93,6 +93,7 @@ const Navbar = () => {
         <div className='modal-content'>
           <input
             type='text'
+            style={{ color: 'black' }}
             placeholder='search users'
             value={search}
             onChange={(e) => fetchUsers(e.target.value)}
