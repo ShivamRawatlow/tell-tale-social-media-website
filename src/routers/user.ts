@@ -11,6 +11,7 @@ userRouter.get('/me', auth, async (req: Request, res: Response) => {
     await me.populate('posts').execPopulate();
     await me.populate('followers').execPopulate();
     await me.populate('following').execPopulate();
+
     res.send(me);
   } catch (error) {
     res.status(401).send(error);

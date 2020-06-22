@@ -42,17 +42,11 @@ const Navbar = () => {
             search
           </i>
         </li>,
-        <li key='8'>
-          <Link to='/'>Home</Link>
-        </li>,
         <li key='1'>
           <Link to='/profile'>MyProfile</Link>
         </li>,
         <li key='2'>
           <Link to='/createpost'>CreatePost</Link>
-        </li>,
-        <li key='3'>
-          <Link to='/myfollowerspost'>MyFollowersPost</Link>
         </li>,
         <li key='4'>
           <button
