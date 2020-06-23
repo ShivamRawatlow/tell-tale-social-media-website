@@ -63,6 +63,7 @@ userRouter.post('/user/signup', async (req: Request, res: Response) => {
     const message = 'user saved successfully';
     res.status(201).send({ user, token, message });
   } catch (error) {
+    console.log(error.message);
     res.status(400).send(error.message);
   }
 });

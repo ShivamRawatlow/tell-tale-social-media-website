@@ -37,7 +37,6 @@ const SignUp = () => {
         html: 'Confirm password and Password do not match',
         classes: '#c62828 red darken-3',
       });
-
       return;
     }
     try {
@@ -64,8 +63,13 @@ const SignUp = () => {
     } catch (error) {
       hideSpinner();
       if (error.response) {
-        const message = error.response.data;
-        M.toast({ html: message, classes: '#c62828 red darken-3' });
+        const message = error.response;
+        console.log('Error message', error);
+        M.toast({
+          html: 'Something went wrong',
+          classes: '#c62828 red darken-3',
+        });
+        return;
       }
     }
   };
