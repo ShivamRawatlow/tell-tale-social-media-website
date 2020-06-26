@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { UserContext } from '../App';
-import store, { set } from 'store2';
+import store from 'store2';
 
 import M from 'materialize-css';
 import axios from '../utils/axiosextension';

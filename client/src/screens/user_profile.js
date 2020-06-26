@@ -81,6 +81,7 @@ const Profile = () => {
                   height: '160px',
                   borderRadius: '80px',
                 }}
+                loading='lazy'
                 src={userProfile.picUrl}
               />
             </div>

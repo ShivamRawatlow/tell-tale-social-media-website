@@ -106,6 +106,7 @@ const PostComponent = ({ item, setData, data }) => {
             borderRadius: '40px',
           }}
           src={item.owner.picUrl}
+          loading='lazy'
         />
 
         <Link
@@ -136,7 +137,7 @@ const PostComponent = ({ item, setData, data }) => {
       </h5>
 
       <div className='card-image'>
-        <img src={item.picUrl} alt='image' />
+        <img src={item.picUrl} alt='image' loading='lazy' />
       </div>
 
       <div className='card-content'>
