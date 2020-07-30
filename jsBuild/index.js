@@ -10,10 +10,10 @@ const like_1 = require("./routers/like");
 const comment_1 = require("./routers/comment");
 const follow_1 = require("./routers/follow");
 const path_1 = __importDefault(require("path"));
-//import cors from 'cors';
+const cors_1 = __importDefault(require("cors"));
 require('./db/mongoose'); // no need to save in variable(only to ensure that database runs)
 const app = express_1.default();
-//app.use(cors());
+app.use(cors_1.default());
 const port = process.env.PORT;
 app.use(express_1.default.json());
 app.use(user_1.userRouter);

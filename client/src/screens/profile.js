@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../App';
 import axios from '../utils/axiosextension';
 import uploadPic from '../utils/upload_pic';
-import M from 'materialize-css';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -155,7 +154,7 @@ const Profile = () => {
               className='file-field input-field'
             >
               <div className='btn green'>
-                <span>Upload Image</span>
+                <i class='material-icons'>add_a_photo</i>
                 <input
                   type='file'
                   onChange={(e) => {

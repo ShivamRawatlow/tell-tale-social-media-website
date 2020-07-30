@@ -59,6 +59,7 @@ exports.userRouter.post('/user/signup', async (req, res) => {
         res.status(201).send({ user, token, message });
     }
     catch (error) {
+        console.log(error.message);
         res.status(400).send(error.message);
     }
 });

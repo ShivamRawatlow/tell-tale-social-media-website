@@ -30,6 +30,11 @@ const Navbar = () => {
     M.Modal.init(searchModel.current);
   }, []);
 
+  const initDropDown = () => {
+    let elems = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(elems, { inDuration: 300, outDuration: 225 });
+  };
+
   const renderList = () => {
     if (state) {
       return [
@@ -56,6 +61,7 @@ const Navbar = () => {
               dispatch({ type: 'CLEAR' });
               history.push('/login');
             }}
+            style={{ margin: '1rem' }}
           >
             Logout
           </button>
@@ -73,65 +79,98 @@ const Navbar = () => {
     }
   };
 
+  const Mydropdown = (
+    <ul id='dropdown1' className='dropdown-content'>
+      <li>
+        <a href='#!'>one</a>
+      </li>
+      <li>
+        <a href='#!'>two</a>
+      </li>
+      <li className='divider' tabindex='-1'></li>
+      <li>
+        <a href='#!'>three</a>
+      </li>
+      <li>
+        <a href='#!'>
+          <i className='material-icons'>view_module</i>four
+        </a>
+      </li>
+      <li>
+        <a href='#!'>
+          <i className='material-icons'>cloud</i>five
+        </a>
+      </li>
+    </ul>
+  );
+
   return (
-    <nav>
-      <div className='nav-wrapper green'>
-        <Link key='100' to={state ? '/' : '/login'} className='brand-logo left'>
-          Tell Tale
-        </Link>
-        <ul id='nav-mobile' className='right'>
-          {renderList()}
-        </ul>
-      </div>
-
-      <div
-        id='modal1'
-        className='modal'
-        ref={searchModel}
-        style={{ color: 'black' }}
-      >
-        <div className='modal-content'>
-          <input
-            type='text'
-            placeholder='search users'
-            value={search}
-            onChange={(e) => fetchUsers(e.target.value)}
-          />
-
-          <ul className='collection'>
-            {users.map((item) => {
-              return (
-                <Link
-                  to={
-                    item._id !== state._id ? `/profile/${item._id}` : `/profile`
-                  }
-                  onClick={() => {
-                    M.Modal.getInstance(searchModel.current).close();
-                  }}
-                >
-                  <li
-                    className='collection-item'
-                    key={item._id}
-                    style={{ color: 'black' }}
-                  >
-                    {item.name}
-                  </li>
-                </Link>
-              );
-            })}
+    <>
+      <nav>
+        <div className='nav-wrapper green' style={{ paddingLeft: '1rem' }}>
+          <Link
+            key='100'
+            to={state ? '/' : '/login'}
+            className='brand-logo left'
+          >
+            Tell Tale
+          </Link>
+          <ul id='nav-mobile' className='right'>
+            {renderList()}
           </ul>
         </div>
-        <div className='modal-footer'>
-          <button
-            style={{ color: 'white' }}
-            className='modal-close green btn-flat'
-            onClick={() => setSearch('')}
-          >
-            close
-          </button>
+
+        <div
+          id='modal1'
+          className='modal'
+          ref={searchModel}
+          style={{ color: 'black' }}
+        >
+          <div className='modal-content'>
+            <input
+              type='text'
+              placeholder='search users'
+              value={search}
+              onChange={(e) => fetchUsers(e.target.value)}
+            />
+
+            <ul className='collection'>
+              {users.map((item) => {
+                return (
+                  <Link
+                    to={
+                      item._id !== state._id
+                        ? `/profile/${item._id}`
+                        : `/profile`
+                    }
+                    onClick={() => {
+                      M.Modal.getInstance(searchModel.current).close();
+                    }}
+                  >
+                    <li
+                      className='collection-item'
+                      key={item._id}
+                      style={{ color: 'black' }}
+                    >
+                      {item.name}
+                    </li>
+                  </Link>
+                );
+              })}
+            </ul>
+          </div>
+          <div className='modal-footer' style={{ height: 'auto' }}>
+            <button
+              style={{ color: 'white', margin: '1rem' }}
+              className='modal-close green btn-flat'
+              onClick={() => setSearch('')}
+            >
+              close
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 

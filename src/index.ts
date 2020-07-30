@@ -5,13 +5,13 @@ import { likeRouter } from './routers/like';
 import { commentRouter } from './routers/comment';
 import { followRouter } from './routers/follow';
 import path from 'path';
-//import cors from 'cors';
+import cors from 'cors';
 
 require('./db/mongoose'); // no need to save in variable(only to ensure that database runs)
 
 const app = express();
 
-//app.use(cors());
+app.use(cors());
 const port = process.env.PORT;
 
 app.use(express.json());

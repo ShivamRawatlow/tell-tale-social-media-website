@@ -94,50 +94,56 @@ const PostComponent = ({ item, setData, data }) => {
 
   return (
     <div className='card home-card'>
-      <h5
-        style={{
-          padding: '7px',
-        }}
-      >
-        <img
-          style={{
-            width: '50px',
-            height: '50px',
-            borderRadius: '40px',
-          }}
-          src={item.owner.picUrl}
-          loading='lazy'
-        />
-
-        <Link
-          style={{
-            height: '10px',
-            width: '50%',
-            display: 'inline-block',
-            color: 'black',
-          }}
-          to={
-            item.owner._id !== state._id
-              ? `/profile/${item.owner._id}`
-              : `/profile`
-          }
+      <div className='container' style={{ width: '100%', maxWidth: 'initial' }}>
+        <div
+          className='row valign-wrapper'
+          style={{ width: '100%', margin: '0' }}
         >
-          {item.owner.name}
-        </Link>
-
-        {item.owner._id === state._id && (
-          <i
-            className='material-icons'
-            style={{ float: 'right' }}
-            onClick={() => deletePost(item._id)}
+          <div
+            className='col s2'
+            style={{ marginTop: '.5rem', height: '100%' }}
           >
-            delete
-          </i>
-        )}
-      </h5>
+            <img
+              style={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '40px',
+                padding: '.2rem',
+              }}
+              src={item.owner.picUrl}
+            />
+          </div>
+          <div className='col s8 center-align' style={{ height: '100%' }}>
+            <Link
+              style={{
+                height: '100%',
+                color: 'black',
+              }}
+              to={
+                item.owner._id !== state._id
+                  ? `/profile/${item.owner._id}`
+                  : `/profile`
+              }
+            >
+              {item.owner.name}
+            </Link>
+          </div>
+          <div className='col s2' style={{ height: '100%' }}>
+            {item.owner._id === state._id && (
+              <i
+                className='material-icons'
+                style={{ float: 'right' }}
+                onClick={() => deletePost(item._id)}
+              >
+                delete
+              </i>
+            )}
+          </div>
+        </div>
+      </div>
 
-      <div className='card-image'>
-        <img src={item.picUrl} alt='image' loading='lazy' />
+      <div className='card-image' style={{ padding: '1rem' }}>
+        <img src={item.picUrl} alt='image' />
       </div>
 
       <div className='card-content'>
@@ -146,7 +152,7 @@ const PostComponent = ({ item, setData, data }) => {
         </p>
         <div
           style={{
-            margin: '5px 0px',
+            margin: '5px 5px',
             borderBottom: '1px solid grey',
           }}
         />
