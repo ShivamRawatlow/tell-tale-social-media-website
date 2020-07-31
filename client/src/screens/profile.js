@@ -3,6 +3,7 @@ import { UserContext } from '../App';
 import axios from '../utils/axiosextension';
 import uploadPic from '../utils/upload_pic';
 import Modal from 'react-modal';
+import Gallery from '../components/gallery';
 
 const customStyles = {
   content: {
@@ -58,7 +59,7 @@ const Profile = () => {
   return (
     <>
       {myProfile ? (
-        <div style={{ maxWidth: '550px', margin: '0px auto' }}>
+        <>
           <Modal
             isOpen={modelIsOpen}
             onRequestClose={() => setModelIsOpen(false)}
@@ -115,14 +116,12 @@ const Profile = () => {
             </div>
           </Modal>
 
-          <div style={{ margin: '18px 0px', borderBottom: '1px solid grey' }}>
+          <div className='container'>
             <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-around',
-              }}
+              className='row'
+              style={{ margin: '18px 0px', borderBottom: '1px solid grey' }}
             >
-              <div>
+              <div className='col m6 s12'>
                 <img
                   style={{
                     width: '160px',
@@ -131,15 +130,29 @@ const Profile = () => {
                   }}
                   src={myProfile.picUrl}
                 />
+                <span className='btn btn-file'>
+                  <i className='material-icons'>add_a_photo</i>
+                  <input
+                    type='file'
+                    onChange={(e) => {
+                      if (e.target.files[0]) {
+                        const fileData = e.target.files[0];
+                        setPicFileData(e.target.files);
+                        const urlData = URL.createObjectURL(fileData);
+                        setPicData(urlData);
+                        setModelIsOpen(true);
+                      }
+                    }}
+                  />
+                </span>
               </div>
-              <div>
+              <div className='col m6 s12'>
                 <h4>{state ? state.name : 'loading'}</h4>
                 <h5>{state ? state.email : 'loading'}</h5>
                 <div
                   style={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    width: '108%',
                   }}
                 >
                   <h6>{myProfile.posts.length} posts</h6>
@@ -147,48 +160,49 @@ const Profile = () => {
                   <h6>{myProfile.following.length} following</h6>
                 </div>
               </div>
-            </div>
 
-            <div
-              style={{ margin: '10px 0px 10px 42px' }}
-              className='file-field input-field'
-            >
-              <div className='btn green'>
-                <i class='material-icons'>add_a_photo</i>
-                <input
-                  type='file'
-                  onChange={(e) => {
-                    const fileData = e.target.files[0];
-                    setPicFileData(e.target.files);
-                    const urlData = URL.createObjectURL(fileData);
-                    setPicData(urlData);
-                    setModelIsOpen(true);
-                  }}
-                />
-              </div>
-              <div className='file-path-wrapper'>
-                <input className='file-path validate' type='text' />
+              <div className='row'>
+                <div className='col s12'></div>
               </div>
             </div>
-          </div>
 
-          <div className='gallery'>
-            {myProfile.posts.map((post) => {
-              return (
-                <img
-                  className='item'
-                  key={post._id}
-                  src={post.picUrl}
-                  alt={post.description}
-                />
-              );
-            })}
+            <Gallery profile={myProfile} />
           </div>
-        </div>
+        </>
       ) : (
-        <h2>loading...</h2>
+        <h2 style={{ padding: '1rem' }}>loading...</h2>
       )}
     </>
   );
 };
 export default Profile;
+
+/** <div className='gallery'>
+ {myProfile.posts.map((post) => {
+   return (
+     <img
+       className='item'
+       key={post._id}
+       src={post.picUrl}
+       alt={post.description}
+     />
+   );
+ })}
+</div> */
+
+/** <div className='btn green'>
+                  <i className='material-icons'>add_a_photo</i>
+                  <input
+                    type='file'
+                    onChange={(e) => {
+                      const fileData = e.target.files[0];
+                      setPicFileData(e.target.files);
+                      const urlData = URL.createObjectURL(fileData);
+                      setPicData(urlData);
+                      setModelIsOpen(true);
+                    }}
+                  />
+                </div>
+                <div className='file-path-wrapper'>
+                  <input className='file-path validate' type='text' />
+                </div> */

@@ -95,10 +95,7 @@ const PostComponent = ({ item, setData, data }) => {
   return (
     <div className='card home-card'>
       <div className='container' style={{ width: '100%', maxWidth: 'initial' }}>
-        <div
-          className='row valign-wrapper'
-          style={{ width: '100%', margin: '0' }}
-        >
+        <div className='row valign-wrapper' style={{ margin: '0' }}>
           <div
             className='col s2'
             style={{ marginTop: '.5rem', height: '100%' }}
@@ -125,7 +122,7 @@ const PostComponent = ({ item, setData, data }) => {
                   : `/profile`
               }
             >
-              {item.owner.name}
+              <h5>{item.owner.name}</h5>
             </Link>
           </div>
           <div className='col s2' style={{ height: '100%' }}>

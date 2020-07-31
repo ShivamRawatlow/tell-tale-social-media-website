@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from '../utils/axiosextension';
 import { UserContext } from '../App';
 import { useParams } from 'react-router-dom';
+import Gallery from '../components/gallery';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState(undefined);
@@ -65,8 +66,73 @@ const Profile = () => {
   return (
     <>
       {userProfile ? (
-        <div style={{ maxWidth: '550px', margin: '0px auto' }}>
-          <div
+        <>
+          <div className='container'>
+            <div
+              className='row'
+              style={{ margin: '18px 0px', borderBottom: '1px solid grey' }}
+            >
+              <div className='col m6 s12'>
+                <img
+                  style={{
+                    width: '160px',
+                    height: '160px',
+                    borderRadius: '80px',
+                  }}
+                  src={userProfile.picUrl}
+                />
+                <button
+                  className='btn green'
+                  type='submit'
+                  name='action'
+                  onClick={() => {
+                    const alreadyFollowed = userProfile.followers.find(
+                      (e) => e.sender === state._id
+                    );
+                    if (!alreadyFollowed) {
+                      setShowFollow(true);
+                      followUser(userProfile._id);
+                    } else {
+                      setShowFollow(false);
+                      unfollowUser(alreadyFollowed._id);
+                    }
+                  }}
+                >
+                  {showFollow ? 'unfollow' : 'follow'}
+                </button>
+              </div>
+              <div className='col m6 s12'>
+                <h4>{userProfile.name}</h4>
+                <h5>{userProfile.email}</h5>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <h6>{userProfile.posts.length} posts</h6>
+                  <h6>{userProfile.followers.length} followers</h6>
+                  <h6>{userProfile.following.length} following</h6>
+                </div>
+              </div>
+
+              <div className='row'>
+                <div className='col s12'></div>
+              </div>
+            </div>
+
+            <Gallery profile={userProfile} />
+          </div>
+        </>
+      ) : (
+        <h2>loading...</h2>
+      )}
+    </>
+  );
+};
+export default Profile;
+
+/** <div
             style={{
               display: 'flex',
               justifyContent: 'space-around',
@@ -81,7 +147,7 @@ const Profile = () => {
                   height: '160px',
                   borderRadius: '80px',
                 }}
-                loading='lazy'
+             
                 src={userProfile.picUrl}
               />
             </div>
@@ -119,24 +185,4 @@ const Profile = () => {
                 {showFollow ? 'unfollow' : 'follow'}
               </button>
             </div>
-          </div>
-          <div className='gallery'>
-            {userProfile.posts.map((post) => {
-              return (
-                <img
-                  className='item'
-                  key={post._id}
-                  src={post.picUrl}
-                  alt={post.description}
-                />
-              );
-            })}
-          </div>
-        </div>
-      ) : (
-        <h2>loading...</h2>
-      )}
-    </>
-  );
-};
-export default Profile;
+          </div> */
