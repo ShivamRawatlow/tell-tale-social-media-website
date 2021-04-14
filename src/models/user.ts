@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
+  //@ts-ignore
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -106,7 +107,9 @@ userSchema.methods.toJSON = function () {
   const userObject = user.toObject(); // this inbuilt mongoose function returns
   //just the object data without any inbuilt function
 
+  //@ts-ignore
   delete userObject.password;
+  //@ts-ignore
   delete userObject.tokens;
 
   //console.log(userObject);
@@ -122,6 +125,7 @@ userSchema.methods.generateAuthToken = async function () {
     process.env.JWT_SECRET as string
   );
 
+  //@ts-ignore
   user.tokens = user.tokens.concat({ token });
   await user.save();
   return token;
@@ -156,12 +160,14 @@ userSchema.pre('save', async function (next) {
 
 //Delete user tasks when user is removed
 userSchema.pre('delete', async function (next) {
+  //@ts-ignore
   const user: IUser = this as IUser; // 'this' is the user being saved.
   await Like.deleteMany({ sender: user._id });
   await Post.deleteMany({ sender: user._id });
   await Follow.deleteMany({ sender: user._id });
   await Post.deleteMany({ owner: user._id });
 
+  //@ts-ignore
   next();
 });
 

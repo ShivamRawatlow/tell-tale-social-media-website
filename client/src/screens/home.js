@@ -19,8 +19,6 @@ const Home = () => {
   }, []);
 
   return (
-    <>
-      {state ? (
         <div className='home'>
           {data.map((item) => {
             return (
@@ -30,10 +28,6 @@ const Home = () => {
             );
           })}
         </div>
-      ) : (
-        <h2>loading...</h2>
-      )}
-    </>
   );
 };
 export default Home;

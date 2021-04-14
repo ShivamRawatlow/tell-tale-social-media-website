@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import App, { UserContext } from '../App';
 import axios from '../utils/axiosextension';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const PostComponent = ({ item, setData, data }) => {
   const { state } = useContext(UserContext);
-
   const [alreadyLiked, setAlreadyLiked] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     likeCheck();
@@ -24,6 +25,11 @@ const PostComponent = ({ item, setData, data }) => {
   };
 
   const likePost = async (post) => {
+    if (!state) {
+      history.push('/login');
+      return;
+    }
+
     try {
       const res = await axios.post(`/me/like/${post._id}`);
       const likes = res.data;
@@ -36,6 +42,11 @@ const PostComponent = ({ item, setData, data }) => {
   };
 
   const unlikePost = async (likeId, post) => {
+    if (!state) {
+      history.push('/login');
+      return;
+    }
+
     try {
       const res = await axios.post(`/me/unlike/${likeId}`);
       const likes = res.data;
@@ -48,6 +59,11 @@ const PostComponent = ({ item, setData, data }) => {
   };
 
   const makeComment = async (post, description) => {
+    if (!state) {
+      history.push('/login');
+      return;
+    }
+
     try {
       const res = await axios.post(`/me/comment`, {
         postId: post._id,
@@ -61,6 +77,11 @@ const PostComponent = ({ item, setData, data }) => {
   };
 
   const deletePost = async (postId) => {
+    if (!state) {
+      history.push('/login');
+      return;
+    }
+
     try {
       const res = await axios.delete(`/me/post/${postId}`);
       const newData = data.filter((item) => {
@@ -72,6 +93,11 @@ const PostComponent = ({ item, setData, data }) => {
   };
 
   const deleteComment = async (commentId, post) => {
+    if (!state) {
+      history.push('/login');
+      return;
+    }
+
     try {
       const res = await axios.delete(`/me/post/comment/${commentId}`);
       const comments = post.comments.filter((comment) => {
@@ -84,13 +110,17 @@ const PostComponent = ({ item, setData, data }) => {
   };
 
   const likeCheck = () => {
-    const alreadyLiked = item.likes.find((e) => e.sender === state._id);
+    const alreadyLiked = item.likes.find((e) => e.sender === state?._id);
     if (!alreadyLiked) {
       setAlreadyLiked(false);
     } else {
       setAlreadyLiked(true);
     }
   };
+
+  if (!item.owner) {
+    return <></>;
+  }
 
   return (
     <div className='card home-card'>
@@ -100,14 +130,14 @@ const PostComponent = ({ item, setData, data }) => {
             className='col s2'
             style={{ marginTop: '.5rem', height: '100%' }}
           >
-            <img
+            <LazyLoadImage
               style={{
                 width: '50px',
                 height: '50px',
                 borderRadius: '40px',
                 padding: '.2rem',
               }}
-              src={item.owner.picUrl}
+              src={item?.owner?.picUrl}
             />
           </div>
           <div className='col s8 center-align' style={{ height: '100%' }}>
@@ -117,16 +147,16 @@ const PostComponent = ({ item, setData, data }) => {
                 color: 'black',
               }}
               to={
-                item.owner._id !== state._id
-                  ? `/profile/${item.owner._id}`
+                item?.owner?._id !== state?._id
+                  ? `/profile/${item?.owner?._id}`
                   : `/profile`
               }
             >
-              <h5>{item.owner.name}</h5>
+              <h5>{item?.owner?.name}</h5>
             </Link>
           </div>
           <div className='col s2' style={{ height: '100%' }}>
-            {item.owner._id === state._id && (
+            {item.owner._id === state?._id && (
               <i
                 className='material-icons'
                 style={{ float: 'right' }}
@@ -140,7 +170,7 @@ const PostComponent = ({ item, setData, data }) => {
       </div>
 
       <div className='card-image' style={{ padding: '1rem' }}>
-        <img src={item.picUrl} alt='image' />
+        <LazyLoadImage src={item.picUrl} alt='image' />
       </div>
 
       <div className='card-content'>
@@ -159,7 +189,7 @@ const PostComponent = ({ item, setData, data }) => {
             style={{ color: 'red' }}
             onClick={() => {
               const alreadyLiked = item.likes.find(
-                (e) => e.sender === state._id
+                (e) => e.sender === state?._id
               );
               if (!alreadyLiked) {
                 likePost(item);
@@ -188,7 +218,7 @@ const PostComponent = ({ item, setData, data }) => {
                   {comment.sender.name + ' :    '}
                 </span>
                 {comment.description}
-                {comment.sender._id === state._id && (
+                {comment.sender._id === state?._id && (
                   <i
                     className='material-icons'
                     style={{ float: 'right' }}

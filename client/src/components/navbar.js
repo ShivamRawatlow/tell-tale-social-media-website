@@ -30,11 +30,6 @@ const Navbar = () => {
     M.Modal.init(searchModel.current);
   }, []);
 
-  const initDropDown = () => {
-    let elems = document.querySelectorAll('.dropdown-trigger');
-    M.Dropdown.init(elems, { inDuration: 300, outDuration: 225 });
-  };
-
   const renderList = () => {
     if (state) {
       return [
@@ -79,30 +74,6 @@ const Navbar = () => {
     }
   };
 
-  const Mydropdown = (
-    <ul id='dropdown1' className='dropdown-content'>
-      <li>
-        <a href='#!'>one</a>
-      </li>
-      <li>
-        <a href='#!'>two</a>
-      </li>
-      <li className='divider' tabindex='-1'></li>
-      <li>
-        <a href='#!'>three</a>
-      </li>
-      <li>
-        <a href='#!'>
-          <i className='material-icons'>view_module</i>four
-        </a>
-      </li>
-      <li>
-        <a href='#!'>
-          <i className='material-icons'>cloud</i>five
-        </a>
-      </li>
-    </ul>
-  );
 
   return (
     <>
@@ -110,7 +81,7 @@ const Navbar = () => {
         <div className='nav-wrapper green' style={{ paddingLeft: '1rem' }}>
           <Link
             key='100'
-            to={state ? '/' : '/login'}
+            to={'/'}
             className='brand-logo left'
           >
             Tell Tale

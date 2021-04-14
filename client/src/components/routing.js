@@ -19,7 +19,7 @@ const Routing = () => {
     if (user) {
       dispatch({ type: 'USER', payload: user }); // if the user again access the website without login
     } else {
-      history.push('/login');
+     // history.push('/login');
     }
   }, []);
 
