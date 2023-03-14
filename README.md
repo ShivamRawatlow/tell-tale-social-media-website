@@ -10,4 +10,4 @@ Technical Details:
 5. Materialize CSS
 6. Heroku hosting
 
-link : https://shivamrawat-tell-tale.herokuapp.com
+link :https://tell-tale-v2.netlify.app/
